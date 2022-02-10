@@ -15,7 +15,6 @@ graph = []
 for _ in range(a):
     graph.append(list(input().rstrip()))
 
-visited = [[0]*b for _ in range(a)]
 # 방향좌표
 dx = [1,-1,0,0]
 dy = [0,0,1,-1]
@@ -25,7 +24,7 @@ def bfs(x,y,cnt):
     max_cnt = -1
     q = deque()
     q.append(((x,y,cnt)))
-    graph[x][y] = 1 # 첫 queue(1이면 방문)
+    visited[x][y] = 1 # 첫 queue(1이면 방문)
 
     while q:
         x,y,cur_cnt = q.popleft()
@@ -35,22 +34,18 @@ def bfs(x,y,cnt):
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < b and 0 <= ny < a and graph[ny][nx] == 'L' and not visited[nx][ny]:
-                visited[ny][nx] = 1
-                q.append((nx,ny,cur_cnt+1))
-
+            if 0 <= nx < a and 0 <= ny < b and graph[nx][ny] == 'L' and not visited[nx][ny]:
+                q.append((nx, ny, cur_cnt + 1))
+                visited[nx][ny] = 1
     return max_cnt
-
-cnt = 0
-
 
 ans = -1
 for i in range(a):
     for j in range(b):
-        if graph[a][b] == 'L':
+        if graph[i][j] == 'L':
             # l일때만 queue에 넣기
             # visited 계속 0으로 초기화 진행행
             visited = [[0]*b for _ in range(a)]
-            ans = max(ans,bfs(x,y,0))
+            ans = max(ans,bfs(i,j,0))
 
 print(ans)

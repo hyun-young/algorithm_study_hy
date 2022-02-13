@@ -18,6 +18,7 @@ def queue_calc(q):
     while q:
         f = q.popleft()  # first 절대값 제일 큰 수
         s = q.popleft()  # second 절대값 그 다음수
+        # 양수 1 포함여부와 상관없이 곱셈 덧셈 중 더 큰 수 더하는 방식
         if f*s > f+s:
             res += (f*s)
         else:
@@ -50,16 +51,16 @@ pos_q = deque(pos)
 neg_q = deque(neg)
 
 
-# 음수처리
+# 개수 짝수로 만들기 위한 음수 처리
 if len(neg) % 2: # 홀수개
     rest_neg = neg_q.pop()
-    if not zero: # 0이 존재한다면 0 곱해주는 식으로 마지막 없애기
+    if not zero: # 0이 없었다면 음수를 더해주고 0이 있었다면 마지막 음수는 더하지 않는다(0과 곱셈)
         ans += rest_neg
 
-# 양수 처리
-if len(pos) % 2:
+# 개수 짝수로 만들기 위한 양수 처리
+if len(pos) % 2: # 홀수개
     rest_pos = pos_q.pop()
-    ans += rest_pos
+    ans += rest_pos # 마지막 양수는 더하자
 
 ans += (queue_calc(pos_q) + queue_calc(neg_q))
 

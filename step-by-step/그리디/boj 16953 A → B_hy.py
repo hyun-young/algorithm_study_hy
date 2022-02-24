@@ -22,11 +22,11 @@ a, b = map(int, input().split())
 while 1:
     if b == a:
         break
-    elif (b % 2 == 1 and b % 10 != 1) or b < a:
+    elif (b % 2 and b % 10 != 1) or b < a:
         cnt = -1
         break
     elif b % 10 == 1:
-        b = (b - 1) // 10 # 191 --> 19, 2321 --> 232
+        b = (b-1)// 10 # 191 --> 19, 2321 --> 232
         cnt += 1
     else:
         b //= 2

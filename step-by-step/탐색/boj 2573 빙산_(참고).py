@@ -40,18 +40,21 @@ dy = [0,0,1,-1]
 for i in range(n):
     arr.append(list(map(int, input().split())))
 
-def solution():
+def solution(arr):
     year = 0
     while 1:
         visited = [[0]*m for _ in range(n)] # n행 m열
-        is_split = 0 # 쪼개졌는가?
+        ice_splitted = 0 # 쪼개졌는가?
         for i in range(n):
             for j in range(m):
                 if arr[i][j] > 0 and not visited[i][j]: # 현 위치가 빙산이면서 업데이트 안된 곳
                     ice = bfs(i,j,arr,visited)
-                    is_split += 1 # 여기서 이게 왜 +1?????
-        if is_split > 1:
+                    ice_splitted += 1
+        if ice_splitted > 1:
             return year
+        if not ice_splitted:
+            return 0
+
         for (x,y),cnt in ice.items():
             if arr[x][y] < cnt:
                 arr[x][y] = 0
@@ -59,5 +62,5 @@ def solution():
                 arr[x][y] -= cnt
         year +=1
 
-print(solution())
+print(solution(arr))
 
